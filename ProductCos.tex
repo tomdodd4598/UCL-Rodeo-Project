@@ -1,0 +1,51 @@
+Consider the product
+
+$$p\left( \theta_1, \theta_2, \ldots, \theta_n \right) \coloneqq \prod_{k=1}^n \cos^2 \left( \theta_k \right),$$
+
+where each $\theta_k$ is a random angle generated from a random variable $\Theta$ with a uniform distribution on the interval $\left[ -\pi,\pi \right]$. This is equivalent to using a Gaussian distribution the limit of a standard deviation that goes to infinity, due to the periodicity of $\cos^2 \left( \theta_k \right)$. Taking the logarithm,
+
+$$\ln p\left( \theta_1, \theta_2, \ldots, \theta_n \right) = \sum_{k=1}^n \ln \cos^2 \left( \theta_k \right),$$
+
+we have a sum over random values taken from a new distribution. We can calculate the PDF of the associated random variable, which we shall label $Y$, by first finding its CDF, $F_Y \left(y\right)$, in terms of the CDF of $\Theta$:
+
+$$F_Y \left(y\right) = P \left(Y \leq y\right) = P \left(\ln \cos^2 \Theta \leq y\right) = P \left(\cos^2 \Theta \leq e^y\right),$$
+
+$$F_Y \left(y\right) = P \left(\xi\left(y\right) - \pi \leq x \leq -\xi\left(y\right) \right) + P \left(\xi\left(y\right) \leq x \leq \pi - \xi\left(y\right) \right),$$
+
+$$\xi\left(y\right) \coloneqq \frac{\arccos\left(2e^y - 1\right)}{2},$$
+
+\vspace{-0.4em}
+
+$$F_Y \left(y\right) = F_\Theta \left(-\xi\left(y\right)\right) - F_\Theta \left(\xi\left(y\right) - \pi\right) + F_\Theta \left(\pi - \xi\left(y\right)\right) - F_\Theta \left(\xi\left(y\right)\right).$$
+
+\vspace{0.4em}
+
+We now differentiate with respect to $y$ to obtain the PDF:
+
+\vspace{-0.4em}
+
+$$f_Y \left(y\right) = F_Y^\prime \left(y\right) = -\xi^\prime\left(y\right) \left( F_\Theta^\prime\left(\ldots\right) + F_\Theta^\prime\left(\ldots\right) + F_\Theta^\prime\left(\ldots\right) + F_\Theta^\prime\left(\ldots\right) \right),$$
+
+$$f_Y \left(y\right) = \frac{1}{\pi} \sqrt{\frac{1}{e^{-y}-1}},$$
+
+\vspace{0.8em}
+
+where we have used the fact that $f_\Theta\left( \theta \right) = 1 / 2\pi$.
+\newline
+
+\begin{figure}[ht]
+\label{fig:LogCosPDF}
+  \centering
+  \includesvg[width=360pt]{LogCosPDF.svg}
+  \caption{PDF for the random variable $Y$. It is defined for $y \in \left( -\infty, 0 \right)$ and the vertical axis is an asymptote. The blue and red lines represent the mean and median, respectively.}
+\end{figure}
+
+We can now readily find the mean and variance of this PDF:
+
+$$\text{E}\left[Y\right] = -\ln 4,$$
+
+$$\text{Var}\left[Y\right] = \frac{\pi^2}{3}.$$
+
+\vspace{0.8em}
+
+Now we can use Gibrat's law, which tells us that the geometric mean of $p\left( \theta_1, \theta_2, \ldots, \theta_n \right)$ tends towards the PDF of a log-normal distribution, $\text{Lognormal} \left( -\ln 4, \pi^2 / 3n \right)$ \cite{Sutton1997} \cite{asymptoticsAndUstats}. We conclude that the average value of $p\left( \theta_1, \theta_2, \ldots, \theta_n \right)$ is approximately $1/4^n$ for large $n$.
